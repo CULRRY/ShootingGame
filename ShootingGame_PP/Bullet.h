@@ -23,5 +23,5 @@ extern Bullet* gBulletListTail;
 
 void InitBulletList();
 void UpdateBullet();
-void DeleteBulletNode(Bullet* node);
-void PushBackBulletNode(const BulletType type, const int32 y, const int32 x);
+void DeleteBullet(Bullet* node);
+void CreateBullet(const BulletType type, const int32 y, const int32 x);

@@ -21,8 +21,12 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -40,7 +44,11 @@
     <ClInclude Include="Bullet.h">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Enemy.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

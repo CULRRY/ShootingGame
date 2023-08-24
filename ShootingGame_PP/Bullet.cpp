@@ -25,7 +25,7 @@ void UpdateBullet()
 		if (curNode->x <= 0 || curNode->x > 78)
 		{
 			Bullet* tmp = curNode->next;
-			DeleteBulletNode(curNode);
+			DeleteBullet(curNode);
 			curNode = tmp;
 			continue;
 		}
@@ -37,7 +37,7 @@ void UpdateBullet()
 	}
 }
 
-void DeleteBulletNode(Bullet* node)
+void DeleteBullet(Bullet* node)
 {
 	Bullet* prevNode = node->prev;
 	Bullet* nextNode = node->next;
@@ -48,7 +48,7 @@ void DeleteBulletNode(Bullet* node)
 	free(node);
 }
 
-void PushBackBulletNode(const BulletType type, const int32 y, const int32 x)
+void CreateBullet(const BulletType type, const int32 y, const int32 x)
 {
 	Bullet* addNode = (Bullet*)malloc(sizeof(Bullet));
 	addNode->type = type;
