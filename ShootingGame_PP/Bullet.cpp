@@ -2,6 +2,9 @@
 #include "Bullet.h"
 
 
+Bullet* gBulletListHead = nullptr;
+Bullet* gBulletListTail = nullptr;
+
 void InitBulletList()
 {
 	gBulletListHead = (Bullet*)malloc(sizeof(Bullet));
@@ -19,9 +22,22 @@ void UpdateBullet()
 {
 	Bullet* curNode = gBulletListHead->next;
 
+	//TODO 업데이트 로직 구현
 	while (curNode != gBulletListTail)
 	{
-		// TODO 총알의 위치가 맵 밖일 경우 해당 총알 정보 삭제
+		//TODO BulletType으로 분기하여, 총알 위치 업데이트.
+		switch (curNode->type)
+		{
+		case BulletType::PLAYER:
+			curNode->y--;
+			break;
+
+		case BulletType::ENEMY:
+			curNode->y++;
+			break;
+		}
+
+		//TODO 총알의 위치가 맵 밖일 경우 해당 총알 정보 삭제
 		if (curNode->x <= 0 || curNode->x > 78)
 		{
 			Bullet* tmp = curNode->next;
@@ -30,7 +46,7 @@ void UpdateBullet()
 			continue;
 		}
 
-		//TODO 업데이트 로직 구현
+		//TODO 총알의 위치가 플레이어나 보스몸에 닿으면 로직처리 후 삭제
 
 
 		curNode = curNode->next;
