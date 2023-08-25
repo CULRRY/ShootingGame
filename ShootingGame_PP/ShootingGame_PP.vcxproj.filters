@@ -4,11 +4,14 @@
     <Filter Include="Main">
       <UniqueIdentifier>{e1517d75-8dba-4d54-9184-b05414d4b18f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DataStructure">
+      <UniqueIdentifier>{5de94b0e-c6b4-4132-a975-33fb1e055e43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PreCompiled">
+      <UniqueIdentifier>{53fcadb4-732e-4736-ac4b-92e2c8c8add3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
@@ -27,12 +30,15 @@
     <ClCompile Include="Player.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="FreeQueue.cpp" />
+    <ClCompile Include="FreeQueue.cpp">
+      <Filter>DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>PreCompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Main</Filter>
-    </ClInclude>
     <ClInclude Include="Types.h">
       <Filter>Main</Filter>
     </ClInclude>
@@ -51,6 +57,12 @@
     <ClInclude Include="Player.h">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="FreeQueue.h" />
+    <ClInclude Include="FreeQueue.h">
+      <Filter>DataStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>PreCompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h" />
   </ItemGroup>
 </Project>

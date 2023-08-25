@@ -5,12 +5,12 @@ constexpr int32 QUEUE_EMPTY = -1;
 
 struct FreeQueue
 {
-	int32* data;
+	int32* data;		///< Queue의 데이터가 저장되는 공간
 
 	uint32 head;
 	uint32 tail;
-	uint32 size;
-	uint32 capacity;
+	uint32 size;		///< 현재 들어있는 원소의 갯수
+	uint32 capacity;	///< 최대 저장 공간
 };
 
 
