@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Render.h"
 
+char szScreenBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH];
+
 //--------------------------------------------------------------------
 // 버퍼의 내용을 화면으로 찍어주는 함수.
 //
