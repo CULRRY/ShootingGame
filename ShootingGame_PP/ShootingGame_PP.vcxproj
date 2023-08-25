@@ -22,6 +22,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FreeQueue.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Render.cpp" />
@@ -36,6 +37,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FreeQueue.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="stdafx.h" />

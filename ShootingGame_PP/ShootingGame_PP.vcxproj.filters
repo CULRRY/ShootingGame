@@ -27,6 +27,7 @@
     <ClCompile Include="Player.cpp">
       <Filter>Main</Filter>
     </ClCompile>
+    <ClCompile Include="FreeQueue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -50,5 +51,6 @@
     <ClInclude Include="Player.h">
       <Filter>Main</Filter>
     </ClInclude>
+    <ClInclude Include="FreeQueue.h" />
   </ItemGroup>
 </Project>

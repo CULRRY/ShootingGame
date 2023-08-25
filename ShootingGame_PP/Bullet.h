@@ -1,5 +1,7 @@
 #pragma once
 
+constexpr int32 MAX_BULLET_CAPACITY = 1000;
+
 /// @brief 총알을 발사한 주체를 구분하는 열거형
 enum class BulletType
 {
@@ -9,18 +11,17 @@ enum class BulletType
 
 struct Bullet
 {
-	BulletType type;	///< 총알을 발사한 주체
+	bool		isUse;			///< 배열에서 현재 해당 칸이 사용 중인지에 대한 플래그
 
-	int32		y;		///< 총알의 ㅛ좌표
-	int32		x;		///< 총알의 x좌표
+	BulletType	type;			///< 총알을 발사한 주체
 
-	Bullet*		prev;	///< 총알 리스트에서 이전 총알의 메모리 위치
-	Bullet*		next;	///< 총알 리스트에서 다음 총알의 메모리 위치
+	int32		y;				///< 총알의 y좌표
+	int32		x;				///< 총알의 x좌표
+	uint8		speed;			///< 총알의 속도 (업데이트되는 프레임 단위)
+	uint8		frameCount;		///< 속도를 계산하기 위해 프레임을 카운팅 한다.
 };
 
-extern Bullet* gBulletListHead;
-extern Bullet* gBulletListTail;
-
+extern Bullet gBulletArray[MAX_BULLET_CAPACITY];
 
 /// @brief 전역으로 관리되는 총알들의 정보를 담은 Linked-List를 초기화 한다.
 void InitBulletList();
