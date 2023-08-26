@@ -8,7 +8,6 @@
 #include "Player.h"
 #include "Render.h"
 #include "Scene.h"
-#include "UnitPosition.h"
 
 void Init()
 {
@@ -33,9 +32,11 @@ void Update()
 	case SceneType::START: 
 		
 		break;
-	case SceneType::STAGE: 
-		UpdateEnemy();
+	case SceneType::STAGE:
+		ResetBulletPostion();
 		UpdateBullet();
+		UpdateEnemy();
+		UpdatePlayer();
 		break;
 	case SceneType::LOAD:
 		LoadStageData();

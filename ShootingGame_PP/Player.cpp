@@ -15,6 +15,15 @@ void InitPlayer()
 	gPlayer.y = 19;
 }
 
+void UpdatePlayer()
+{
+	if (gBulletPosition[gPlayer.y][gPlayer.x][(int32)BulletType::ENEMY] != -1)
+	{
+		gPlayer.hp--;
+		DeleteBullet(gBulletPosition[gPlayer.y][gPlayer.x][(int32)BulletType::ENEMY]);
+	}
+}
+
 //--------------------------------------------------------------------
 // 키보드입력을 받아서 플레이어를 처리한다.
 //

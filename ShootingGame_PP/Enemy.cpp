@@ -5,9 +5,8 @@
 #include "FreeQueue.h"
 #include "Info.h"
 #include "Render.h"
-#include "UnitPosition.h"
 
-Enemy gEnemyArray[MAX_ENEMY_CAPACITY];
+static Enemy gEnemyArray[MAX_ENEMY_CAPACITY];
 static FreeQueue gFreeEnemyQueue;
 
 void InitEnemy()
@@ -49,6 +48,7 @@ void UpdateEnemy()
 		gEnemyArray[i].y = min(gEnemyArray[i].y, 23);
 		gEnemyArray[i].movementCount++;
 
+		const EnemyInfo& enemyInfo = gEnemyInfos[gEnemyArray[i].id];
 		for (int32 y = gEnemyArray[i].y - 1; y <= gEnemyArray[i].y + 1; y++)
 		{
 			for (int32 x = gEnemyArray[i].x - 2; x <= gEnemyArray[i].x + 2; x++)
@@ -58,8 +58,24 @@ void UpdateEnemy()
 					continue;
 				}
 
-				
+				const char dot = enemyInfo.graphic[y - (gEnemyArray[i].y - 1)][x - (gEnemyArray[i].x - 2)];
+
+				if (dot == '-')
+				{
+					continue;
+				}
+
+				if (gBulletPosition[y][x][(int32)BulletType::PLAYER] != -1)
+				{
+					gEnemyArray[i].hp--;
+					DeleteBullet(gBulletPosition[y][x][(int32)BulletType::PLAYER]);
+				}
 			}
+		}
+
+		if (gEnemyArray[i].hp <= 0)
+		{
+			DeleteEnemy(i);
 		}
 	}
 }

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Console.h"
 constexpr int32 MAX_BULLET_CAPACITY = 1000;
 
 /// @brief 총알을 발사한 주체를 구분하는 열거형
@@ -21,8 +21,13 @@ struct Bullet
 	int32		frameCount;		///< 속도를 계산하기 위해 프레임을 카운팅 한다.
 };
 
+extern int32 gBulletPosition[dfSCREEN_HEIGHT][dfSCREEN_WIDTH][2];
+
 /// @brief 전역으로 관리되는 총알들의 정보를 담은 배열을 초기화 한다.
 void InitBulletArray();
+
+/// @brief 현재 총알의 위치를 담고있는 배열을 리셋한다.
+void ResetBulletPostion();
 
 /// @brief 총알 배열을 순회하며 총알의 대한 정보를 업데이트한다.
 void UpdateBullet();
@@ -40,3 +45,4 @@ void CreateBullet(const BulletType type, const int32 y, const int32 x, const int
 
 /// @brief 총알을 화면에 그린다.
 void DrawBullet();
+

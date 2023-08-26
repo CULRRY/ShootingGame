@@ -17,7 +17,6 @@ struct Enemy
 	int32 frameCount;
 };
 
-extern Enemy gEnemyArray[MAX_ENEMY_CAPACITY];
 
 void InitEnemy();
 

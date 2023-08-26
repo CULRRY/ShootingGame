@@ -2,14 +2,13 @@
 #include "Bullet.h"
 #include "FreeQueue.h"
 #include "Render.h"
-#include "UnitPosition.h"
 #include "Enemy.h"
 #include "Player.h"
 
 
 static Bullet gBulletArray[MAX_BULLET_CAPACITY];
 static FreeQueue gFreeBulletQueue;
-
+int32 gBulletPosition[dfSCREEN_HEIGHT][dfSCREEN_WIDTH][2];
 
 void InitBulletArray()
 {
@@ -19,6 +18,20 @@ void InitBulletArray()
 	for (int32 i = 0; i < MAX_BULLET_CAPACITY; i++)
 	{
 		Push(gFreeBulletQueue, i);
+	}
+}
+
+void ResetBulletPostion()
+{
+	for (int32 y = 0; y < dfSCREEN_HEIGHT; y++)
+	{
+		for (int32 x = 0; x < dfSCREEN_WIDTH; x++)
+		{
+			for (int32 type = 0; type < 2; type++)
+			{
+				gBulletPosition[y][x][type] = -1;
+			}
+		}
 	}
 }
 
@@ -56,6 +69,10 @@ void UpdateBullet()
 			|| gBulletArray[idx].x < 0 || gBulletArray[idx].x >= dfSCREEN_WIDTH)
 		{
 			DeleteBullet(idx);
+		}
+		else
+		{
+			gBulletPosition[gBulletArray[idx].y][gBulletArray[idx].x][(int32)gBulletArray[idx].type] = idx;
 		}
 	}
 
