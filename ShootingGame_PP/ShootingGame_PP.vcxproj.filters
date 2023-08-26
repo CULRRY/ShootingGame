@@ -39,6 +39,15 @@
     <ClCompile Include="Game.cpp">
       <Filter>Main</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Info.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadData.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h">
@@ -67,6 +76,15 @@
     </ClInclude>
     <ClInclude Include="Types.h">
       <Filter>PreCompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Info.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadData.h">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

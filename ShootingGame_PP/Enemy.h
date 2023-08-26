@@ -1,15 +1,31 @@
 #pragma once
 
+constexpr int32 MAX_ENEMY_CAPACITY = 30;
+
 struct Enemy
 {
 	bool isUse;
+
+	int32 id;
 
 	int32 hp;
 
 	int32 y;
 	int32 x;
 
-	uint8 attackFrequency;
-	uint8 bulletSpeed;
-	uint8 frameCount;
+	int32 movementCount;
+	int32 frameCount;
 };
+
+
+void InitEnemy();
+
+void UpdateEnemy();
+
+void DeleteEnemy(const int32 idx);
+
+void CreateEnemy(const Enemy& enemy);
+
+void DrawEnemy();
+
+

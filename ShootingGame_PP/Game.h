@@ -4,7 +4,7 @@
 void Init();
 
 /// @brief 게임의 로직을 갱신한다.
-extern void Update();
+void Update();
 
 /// @brief 게임 화면을 화면에 출력한다.
 void Render();

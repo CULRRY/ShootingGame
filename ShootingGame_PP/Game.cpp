@@ -3,8 +3,10 @@
 
 #include "Bullet.h"
 #include "Console.h"
+#include "Enemy.h"
 #include "Player.h"
 #include "Render.h"
+#include "Scene.h"
 
 void Init()
 {
@@ -15,7 +17,22 @@ void Init()
 
 void Update()
 {
-	UpdateBullet();
+	switch (gScene)
+	{
+	case SceneType::START: 
+		
+		break;
+	case SceneType::STAGE: 
+		UpdateBullet();
+		UpdateEnemy();
+		break;
+	case SceneType::LOAD: 
+		break;
+	case SceneType::GAME_OVER: 
+		break;
+	case SceneType::PAUSE: 
+		break;
+	}
 }
 
 void Render()
@@ -59,12 +76,6 @@ bool KeyProcess()
 	gPlayer.y = max(gPlayer.y, 0);
 	gPlayer.y = min(gPlayer.y, 23);
 
-
-
-
-
-
-
 	// 콘트롤 키. (미사일 키)
 	if (GetAsyncKeyState(VK_CONTROL))
 	{
@@ -74,7 +85,7 @@ bool KeyProcess()
 	// ESC 키. (종료)
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x8001)
 	{
-		// 종료 방법
+		gScene = SceneType::PAUSE;
 	}
 
 	return true;

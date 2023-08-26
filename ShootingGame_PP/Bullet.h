@@ -17,11 +17,9 @@ struct Bullet
 
 	int32		y;				///< 총알의 y좌표
 	int32		x;				///< 총알의 x좌표
-	uint8		speed;			///< 총알의 속도 (업데이트되는 프레임 단위)
-	uint8		frameCount;		///< 속도를 계산하기 위해 프레임을 카운팅 한다.
+	int32		speed;			///< 총알의 속도 (업데이트되는 프레임 단위)
+	int32		frameCount;		///< 속도를 계산하기 위해 프레임을 카운팅 한다.
 };
-
-
 
 /// @brief 전역으로 관리되는 총알들의 정보를 담은 배열을 초기화 한다.
 void InitBulletArray();
@@ -38,7 +36,7 @@ void DeleteBullet(int32 idx);
 /// @param y 총알의 y좌표
 /// @param x 총알의 x좌표
 /// @param speed 총알의 속도
-void CreateBullet(const BulletType type, const int32 y, const int32 x, const uint8 speed);
+void CreateBullet(const BulletType type, const int32 y, const int32 x, const int32 speed);
 
 /// @brief 총알을 화면에 그린다.
 void DrawBullet();

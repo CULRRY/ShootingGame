@@ -64,7 +64,7 @@ void DeleteBullet(int32 idx)
 	Push(gFreeBulletQueue, idx);
 }
 
-void CreateBullet(const BulletType type, const int32 y, const int32 x, const uint8 speed)
+void CreateBullet(const BulletType type, const int32 y, const int32 x, const int32 speed)
 {
 	const int32 idx = Pop(gFreeBulletQueue);
 
