@@ -5,8 +5,9 @@
 #include "FreeQueue.h"
 #include "Info.h"
 #include "Render.h"
+#include "UnitPosition.h"
 
-static Enemy gEnemyArray[MAX_ENEMY_CAPACITY];
+Enemy gEnemyArray[MAX_ENEMY_CAPACITY];
 static FreeQueue gFreeEnemyQueue;
 
 void InitEnemy()
@@ -29,14 +30,37 @@ void UpdateEnemy()
 			continue;
 		}
 
+		gEnemyArray[i].frameCount++;
+
 		if (gEnemyArray[i].frameCount % gEnemyInfos[gEnemyArray[i].id].attackFrequency == 0)
 		{
-			CreateBullet(BulletType::ENEMY, gEnemyArray[i].y + 1, gEnemyArray[i].x, gEnemyInfos[gEnemyArray[i].id].bulletSpeed);
+			CreateBullet(BulletType::ENEMY, gEnemyArray[i].y + 2, gEnemyArray[i].x, gEnemyInfos[gEnemyArray[i].id].bulletSpeed);
 		}
 
-		gEnemyArray[i].frameCount = (gEnemyArray[i].frameCount + 1) % FRAME;
 
+		const MovementInfo& movement = gMovementInfos[gEnemyInfos[gEnemyArray[i].id].movementId];
 		//TODO 적 위치 업데이트
+		gEnemyArray[i].y += movement.dy[gEnemyArray[i].movementCount % movement.size];
+		gEnemyArray[i].x += movement.dx[gEnemyArray[i].movementCount % movement.size];
+
+		gEnemyArray[i].x = max(gEnemyArray[i].x, 0);
+		gEnemyArray[i].x = min(gEnemyArray[i].x, 79);
+		gEnemyArray[i].y = max(gEnemyArray[i].y, 0);
+		gEnemyArray[i].y = min(gEnemyArray[i].y, 23);
+		gEnemyArray[i].movementCount++;
+
+		for (int32 y = gEnemyArray[i].y - 1; y <= gEnemyArray[i].y + 1; y++)
+		{
+			for (int32 x = gEnemyArray[i].x - 2; x <= gEnemyArray[i].x + 2; x++)
+			{
+				if (y < 0 || y >= dfSCREEN_HEIGHT || x < 0 || x >= dfSCREEN_WIDTH)
+				{
+					continue;
+				}
+
+				
+			}
+		}
 	}
 }
 
@@ -46,9 +70,17 @@ void DeleteEnemy(const int32 idx)
 	Push(gFreeEnemyQueue, idx);
 }
 
-void CreateEnemy(const Enemy& enemy)
+void CreateEnemy(const int32 enemyId, const int32 y, const int32 x)
 {
+	const int32 idx = Pop(gFreeEnemyQueue);
 
+	gEnemyArray[idx].isUse = true;
+	gEnemyArray[idx].id = enemyId;
+	gEnemyArray[idx].hp = gEnemyInfos[enemyId].hp;
+	gEnemyArray[idx].y = y;
+	gEnemyArray[idx].x = x;
+	gEnemyArray[idx].movementCount = 0;
+	gEnemyArray[idx].frameCount = 0;
 }
 
 void DrawEnemy()
@@ -60,6 +92,24 @@ void DrawEnemy()
 			continue;
 		}
 
-		Sprite_Draw(gEnemyArray[i].x, gEnemyArray[i].y, 'O');
+		const EnemyInfo& enemyInfo = gEnemyInfos[gEnemyArray[i].id];
+		for (int32 y = gEnemyArray[i].y - 1; y <= gEnemyArray[i].y + 1; y++)
+		{
+			for (int32 x = gEnemyArray[i].x - 2; x <= gEnemyArray[i].x + 2; x++)
+			{
+				if (y < 0 || y >= dfSCREEN_HEIGHT || x < 0 || x >= dfSCREEN_WIDTH)
+				{
+					continue;
+				}
+
+				const char dot = enemyInfo.graphic[y - (gEnemyArray[i].y - 1)][x - (gEnemyArray[i].x - 2)];
+
+				if (dot == '-')
+				{
+					continue;
+				}
+				Sprite_Draw(x, y, dot);
+			}
+		}
 	}
 }

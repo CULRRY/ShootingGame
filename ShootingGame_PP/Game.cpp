@@ -1,18 +1,29 @@
 #include "stdafx.h"
 #include "Game.h"
 
+#include "LoadData.h"
 #include "Bullet.h"
 #include "Console.h"
 #include "Enemy.h"
 #include "Player.h"
 #include "Render.h"
 #include "Scene.h"
+#include "UnitPosition.h"
 
 void Init()
 {
 	cs_Initial();
+	LoadStageList();
+	LoadMovementData();
+	LoadEnemyData();
 	InitBulletArray();
+	InitEnemy();
 	InitPlayer();
+
+
+
+	CreateEnemy(2, 5, 10);
+	CreateEnemy(3, 5, 40);
 }
 
 void Update()
@@ -23,10 +34,12 @@ void Update()
 		
 		break;
 	case SceneType::STAGE: 
-		UpdateBullet();
 		UpdateEnemy();
+		UpdateBullet();
 		break;
-	case SceneType::LOAD: 
+	case SceneType::LOAD:
+		LoadStageData();
+		gScene = SceneType::STAGE;
 		break;
 	case SceneType::GAME_OVER: 
 		break;
@@ -38,9 +51,11 @@ void Update()
 void Render()
 {
 	Buffer_Clear();
-	Draw_Player();
 	DrawBullet();
+	DrawEnemy();
+	DrawPlayer();
 	Buffer_Flip();
+	printf("\nHP : %d", gPlayer.hp);
 }
 
 bool KeyProcess()

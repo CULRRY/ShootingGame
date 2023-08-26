@@ -25,7 +25,7 @@ void InitPlayer()
 //--------------------------------------------------------------------
 // 스크린 버퍼에 플레이어 그리기
 //--------------------------------------------------------------------
-void Draw_Player(void)
+void DrawPlayer(void)
 {
 	if (gPlayer.iVisible)
 		Sprite_Draw(gPlayer.x, gPlayer.y, '#');

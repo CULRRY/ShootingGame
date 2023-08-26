@@ -2,6 +2,9 @@
 #include "Bullet.h"
 #include "FreeQueue.h"
 #include "Render.h"
+#include "UnitPosition.h"
+#include "Enemy.h"
+#include "Player.h"
 
 
 static Bullet gBulletArray[MAX_BULLET_CAPACITY];
@@ -28,13 +31,13 @@ void UpdateBullet()
 			continue;
 		}
 
+		gBulletArray[idx].frameCount = (gBulletArray[idx].frameCount + 1) % FRAME;
+
 		// 총알의 속도 처리
 		if (gBulletArray[idx].frameCount % gBulletArray[idx].speed != 0)
 		{
 			continue;
 		}
-
-		gBulletArray[idx].frameCount = (gBulletArray[idx].frameCount + 1) % FRAME;
 
 		// 총알의 위치 업데이트
 		switch (gBulletArray[idx].type)
@@ -73,12 +76,12 @@ void CreateBullet(const BulletType type, const int32 y, const int32 x, const int
 	gBulletArray[idx].y = y;
 	gBulletArray[idx].x = x;
 	gBulletArray[idx].speed = speed;
+	gBulletArray[idx].frameCount = speed;
 }
 
 
 void DrawBullet(void)
 {
-	
 	for (int32 idx = 0; idx < MAX_BULLET_CAPACITY; idx++)
 	{
 		if (gBulletArray[idx].isUse == false)
@@ -86,6 +89,15 @@ void DrawBullet(void)
 			continue;
 		}
 
-		Sprite_Draw(gBulletArray[idx].x, gBulletArray[idx].y, '^');
+		switch (gBulletArray[idx].type)
+		{
+		case BulletType::PLAYER:
+			Sprite_Draw(gBulletArray[idx].x, gBulletArray[idx].y, '^');
+			break;
+		case BulletType::ENEMY:
+			Sprite_Draw(gBulletArray[idx].x, gBulletArray[idx].y, '*');
+			break;
+		}
+		
 	}
 }

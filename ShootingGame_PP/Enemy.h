@@ -17,6 +17,7 @@ struct Enemy
 	int32 frameCount;
 };
 
+extern Enemy gEnemyArray[MAX_ENEMY_CAPACITY];
 
 void InitEnemy();
 
@@ -24,7 +25,7 @@ void UpdateEnemy();
 
 void DeleteEnemy(const int32 idx);
 
-void CreateEnemy(const Enemy& enemy);
+void CreateEnemy(const int32 enemyId, const int32 y, const int32 x);
 
 void DrawEnemy();
 

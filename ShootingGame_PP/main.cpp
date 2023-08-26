@@ -1,8 +1,7 @@
 #include "stdafx.h"
-
+#include <timeapi.h>
 #include "Game.h"
 #include "LoadData.h"
-
 
 int main(void)
 {
@@ -10,6 +9,7 @@ int main(void)
 	LoadMovementData();
 	LoadEnemyData();
 	Init();
+
 
 	while (true)
 	{
