@@ -86,5 +86,8 @@
     <ClInclude Include="LoadData.h">
       <Filter>Main</Filter>
     </ClInclude>
+    <ClInclude Include="Macro.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

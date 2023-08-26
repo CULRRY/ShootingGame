@@ -93,7 +93,11 @@ void DeleteEnemy(const int32 idx)
 void CreateEnemy(const int32 enemyId, const int32 y, const int32 x)
 {
 	const int32 idx = Pop(gFreeEnemyQueue);
-
+	// 한계치 초과시 생성제한
+	if (idx == QUEUE_EMPTY)
+	{
+		return;
+	}
 	gEnemyArray[idx].isUse = true;
 	gEnemyArray[idx].id = enemyId;
 	gEnemyArray[idx].hp = gEnemyInfos[enemyId].hp;

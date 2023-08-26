@@ -1,6 +1,6 @@
-ㅌ#include "stdafx.h"
+#include "stdafx.h"
+#include "Macro.h"
 #include "LoadData.h"
-
 #include "Info.h"
 
 EnemyInfo* gEnemyInfos = nullptr;
@@ -13,7 +13,7 @@ void LoadMovementData()
 	// 데이터 파일 리스트 오픈
 	if (::fopen_s(&file, MOVEMENT_LIST_PATH, "r") != 0)
 	{
-		__debugbreak();
+		CRASH("파일 열기 에러");
 	}
 
 	char fileList[100][100] = {"", };
@@ -31,7 +31,7 @@ void LoadMovementData()
 
 	if (::fclose(file) != 0)
 	{
-		__debugbreak();
+		CRASH("파일 닫기 에러");
 	}
 
 	gMovementInfos = (MovementInfo*)malloc(sizeof(MovementInfo) * fileCount);
@@ -40,7 +40,7 @@ void LoadMovementData()
 	{
 		if (::fopen_s(&file, fileList[i], "r") != 0)
 		{
-			__debugbreak();
+			CRASH("파일 열기 에러");
 		}
 
 		MovementInfo& info = gMovementInfos[i];
@@ -53,7 +53,7 @@ void LoadMovementData()
 
 		if (::fclose(file) != 0)
 		{
-			__debugbreak();
+			CRASH("파일 닫기 에러");
 		}
 	}
 }
@@ -64,7 +64,7 @@ void LoadEnemyData()
 	// 데이터 파일 리스트 오픈
 	if (::fopen_s(&file, ENEMY_LIST_PATH, "r") != 0)
 	{
-		__debugbreak();
+		CRASH("파일 열기 에러");
 	}
 
 	char fileList[100][100] = { "", };
@@ -82,7 +82,7 @@ void LoadEnemyData()
 
 	if (::fclose(file) != 0)
 	{
-		__debugbreak();
+		CRASH("파일 닫기 에러");
 	}
 
 	gEnemyInfos = (EnemyInfo*)malloc(sizeof(EnemyInfo) * fileCount);
@@ -91,7 +91,7 @@ void LoadEnemyData()
 	{
 		if (::fopen_s(&file, fileList[i], "r") != 0)
 		{
-			__debugbreak();
+			CRASH("파일 열기 에러");
 		}
 
 		EnemyInfo& info = gEnemyInfos[i];
@@ -108,7 +108,7 @@ void LoadEnemyData()
 
 		if (::fclose(file) != 0)
 		{
-			__debugbreak();
+			CRASH("파일 닫기 에러");
 		}
 	}
 }
@@ -119,7 +119,7 @@ void LoadStageList()
 	// 데이터 파일 리스트 오픈
 	if (::fopen_s(&file, STAGE_LIST_PATH, "r") != 0)
 	{
-		__debugbreak();
+		CRASH("파일 열기 에러");
 	}
 
 	char fileList[100][100] = { "", };
@@ -137,7 +137,7 @@ void LoadStageList()
 
 	if (::fclose(file) != 0)
 	{
-		__debugbreak();
+		CRASH("파일 닫기 에러");
 	}
 }
 
