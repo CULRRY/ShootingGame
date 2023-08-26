@@ -1,9 +1,8 @@
 #include "stdafx.h"
+
 #include "Bullet.h"
 #include "FreeQueue.h"
 #include "Render.h"
-#include "Enemy.h"
-#include "Player.h"
 
 
 static Bullet gBulletArray[MAX_BULLET_CAPACITY];
@@ -109,10 +108,10 @@ void DrawBullet(void)
 		switch (gBulletArray[idx].type)
 		{
 		case BulletType::PLAYER:
-			Sprite_Draw(gBulletArray[idx].x, gBulletArray[idx].y, '^');
+			DrawSprite(gBulletArray[idx].x, gBulletArray[idx].y, '^');
 			break;
 		case BulletType::ENEMY:
-			Sprite_Draw(gBulletArray[idx].x, gBulletArray[idx].y, '*');
+			DrawSprite(gBulletArray[idx].x, gBulletArray[idx].y, '*');
 			break;
 		}
 		

@@ -31,6 +31,7 @@ void UpdateEnemy()
 
 		gEnemyArray[i].frameCount++;
 
+		// attackFrequency마다 총알 발사
 		if (gEnemyArray[i].frameCount % gEnemyInfos[gEnemyArray[i].id].attackFrequency == 0)
 		{
 			CreateBullet(BulletType::ENEMY, gEnemyArray[i].y + 2, gEnemyArray[i].x, gEnemyInfos[gEnemyArray[i].id].bulletSpeed);
@@ -38,7 +39,8 @@ void UpdateEnemy()
 
 
 		const MovementInfo& movement = gMovementInfos[gEnemyInfos[gEnemyArray[i].id].movementId];
-		//TODO 적 위치 업데이트
+
+		// 위치 업데이트
 		gEnemyArray[i].y += movement.dy[gEnemyArray[i].movementCount % movement.size];
 		gEnemyArray[i].x += movement.dx[gEnemyArray[i].movementCount % movement.size];
 
@@ -48,6 +50,8 @@ void UpdateEnemy()
 		gEnemyArray[i].y = min(gEnemyArray[i].y, 23);
 		gEnemyArray[i].movementCount++;
 
+
+		// 피격 판정
 		const EnemyInfo& enemyInfo = gEnemyInfos[gEnemyArray[i].id];
 		for (int32 y = gEnemyArray[i].y - 1; y <= gEnemyArray[i].y + 1; y++)
 		{
@@ -124,7 +128,7 @@ void DrawEnemy()
 				{
 					continue;
 				}
-				Sprite_Draw(x, y, dot);
+				DrawSprite(x, y, dot);
 			}
 		}
 	}

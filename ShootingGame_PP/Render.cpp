@@ -9,7 +9,7 @@ char szScreenBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH];
 // 적군,아군,총알 등을 szScreenBuffer 에 넣어주고, 
 // 1 프레임이 끝나는 마지막에 본 함수를 호출하여 버퍼 -> 화면 으로 그린다.
 //--------------------------------------------------------------------
-void Buffer_Flip(void)
+void FlipBuffer(void)
 {
 	int iCnt;
 	for (iCnt = 0; iCnt < dfSCREEN_HEIGHT; iCnt++)
@@ -26,7 +26,7 @@ void Buffer_Flip(void)
 // 매 프레임 그림을 그리기 직전에 버퍼를 지워 준다. 
 // 안그러면 이전 프레임의 잔상이 남으니까
 //--------------------------------------------------------------------
-void Buffer_Clear(void)
+void ClearBuffer(void)
 {
 	int iCnt;
 	for (iCnt = 0; iCnt < dfSCREEN_HEIGHT; iCnt++)
@@ -41,7 +41,7 @@ void Buffer_Clear(void)
 //
 // 입력 받은 X,Y 좌표에 아스키코드 하나를 출력한다. (버퍼에 그림)
 //--------------------------------------------------------------------
-void Sprite_Draw(int iX, int iY, char chSprite)
+void DrawSprite(int iX, int iY, char chSprite)
 {
 	if (iX < 0 || iY < 0 || iX >= dfSCREEN_WIDTH - 1 || iY >= dfSCREEN_HEIGHT)
 		return;

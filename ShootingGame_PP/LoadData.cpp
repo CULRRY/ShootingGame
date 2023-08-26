@@ -1,4 +1,4 @@
-#include "stdafx.h"
+¤¼#include "stdafx.h"
 #include "LoadData.h"
 
 #include "Info.h"

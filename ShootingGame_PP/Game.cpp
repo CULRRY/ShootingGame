@@ -12,6 +12,7 @@
 void Init()
 {
 	cs_Initial();
+	// dat파일을 불러와 게임 정보를 세팅
 	LoadStageList();
 	LoadMovementData();
 	LoadEnemyData();
@@ -51,11 +52,11 @@ void Update()
 
 void Render()
 {
-	Buffer_Clear();
+	ClearBuffer();
 	DrawBullet();
 	DrawEnemy();
 	DrawPlayer();
-	Buffer_Flip();
+	FlipBuffer();
 	printf("\nHP : %d", gPlayer.hp);
 }
 
