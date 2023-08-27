@@ -60,8 +60,8 @@ void Update()
 		gScene = SceneType::STAGE;
 		break;
 	case SceneType::GAME_OVER: 
-		break;
 	case SceneType::GAME_CLEAR:
+		gCursor.y = 8;
 		break;
 	case SceneType::PAUSE: 
 		break;
@@ -71,6 +71,7 @@ void Update()
 void Render()
 {
 	ClearBuffer();
+
 	switch(gScene)
 	{
 	case SceneType::START:
@@ -84,9 +85,20 @@ void Render()
 		printf("STAGE %d", gStageLevel);
 		printf("\nHP : %d\n", gPlayer.hp);
 		break;
-	case SceneType::LOAD: break;
-	case SceneType::GAME_OVER: break;
-	case SceneType::PAUSE: break;
+	case SceneType::LOAD: 
+		break;
+	case SceneType::GAME_OVER:
+		DrawCursor();
+		DrawGameOverScene();
+		break;
+	case SceneType::GAME_CLEAR:
+		DrawCursor();
+		DrawGameClearScene();
+		break;
+	case SceneType::PAUSE:
+		DrawCursor();
+		DrawPauseScene();
+		break;
 	}
 
 
@@ -127,6 +139,37 @@ bool KeyProcess()
 			}
 		}
 		break;
+
+	case SceneType::PAUSE:
+		// 위쪽 방향키.
+		if (GetAsyncKeyState(VK_UP) & 0x8001)
+		{
+			gCursor.y -= 2;
+		}
+		// 아래쪽 방향키.
+		if (GetAsyncKeyState(VK_DOWN) & 0x8001)
+		{
+			gCursor.y += 2;
+		}
+
+		gCursor.y = max(gCursor.y, 8);
+		gCursor.y = min(gCursor.y, 10);
+
+		// 엔터키
+		if (GetAsyncKeyState(VK_RETURN) & 0x8001)
+		{
+			if (gCursor.y == 8)
+			{
+				gScene = SceneType::STAGE;
+				InitCursor();
+			}
+			else
+			{
+				gScene = SceneType::START;
+				InitCursor();
+			}
+		}
+		break;
 	case SceneType::STAGE: 
 		// 위쪽 방향키.
 		if (GetAsyncKeyState(VK_UP) & 0x8001)
@@ -162,16 +205,24 @@ bool KeyProcess()
 			CreateBullet(BulletType::PLAYER, gPlayer.y, gPlayer.x, 1);
 		}
 
-		// ESC 키. (종료)
+		// ESC 키. (일시정지)
 		if (GetAsyncKeyState(VK_ESCAPE) & 0x8001)
 		{
 			gScene = SceneType::PAUSE;
 		}
 		break;
+	case SceneType::GAME_OVER: 
+	case SceneType::GAME_CLEAR:
+		if (GetAsyncKeyState(VK_RETURN) & 0x8001)
+		{
+			if (gCursor.y == 8)
+			{
+				gScene = SceneType::START;
+				InitCursor();
+			}
+		}
+		break;
 	case SceneType::LOAD: break;
-	case SceneType::GAME_OVER: break;
-	case SceneType::PAUSE: break;
-	default: ;
 	}
 	
 
