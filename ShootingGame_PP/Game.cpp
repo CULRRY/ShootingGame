@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Game.h"
-
 #include "LoadData.h"
 #include "Bullet.h"
 #include "Console.h"

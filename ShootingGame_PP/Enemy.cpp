@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Enemy.h"
-
 #include "Bullet.h"
 #include "FreeQueue.h"
 #include "Info.h"
@@ -51,7 +50,7 @@ void UpdateEnemy()
 		}
 
 
-		const MovementInfo& movement = gMovementInfos[gEnemyInfos[gEnemyArray[i].id].movementId];
+		const MovementInfo& movement = gEnemyInfos[gEnemyArray[i].id].movement;
 
 		// 위치 업데이트
 		gEnemyArray[i].y += movement.dy[gEnemyArray[i].movementCount % movement.size];

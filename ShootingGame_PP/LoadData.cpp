@@ -100,10 +100,25 @@ void LoadEnemyData()
 			::fscanf_s(file, "%s", info.graphic[y], (uint32)sizeof(info.graphic[y]));
 		}
 
+		int32 movementId = 0;
 		::fscanf_s(file, "%d", &gEnemyInfos[i].hp);
-		::fscanf_s(file, "%d", &gEnemyInfos[i].movementId);
 		::fscanf_s(file, "%d", &gEnemyInfos[i].attackFrequency);
 		::fscanf_s(file, "%d", &gEnemyInfos[i].bulletSpeed);
+		::fscanf_s(file, "%d", &movementId);
+		::fscanf_s(file, "%d", &gEnemyInfos[i].moveDistance);
+
+		gEnemyInfos[i].movement.size = gMovementInfos[movementId].size * gEnemyInfos[i].moveDistance;
+
+		for (int32 moveInfoIdx = 0; moveInfoIdx < gMovementInfos[movementId].size; moveInfoIdx++)
+		{
+			for (int32 iter = moveInfoIdx * gEnemyInfos[i].moveDistance; 
+				iter < (moveInfoIdx + 1) * gEnemyInfos[i].moveDistance; 
+				iter++)
+			{
+				gEnemyInfos[i].movement.dy[iter] = gMovementInfos[movementId].dy[moveInfoIdx];
+				gEnemyInfos[i].movement.dx[iter] = gMovementInfos[movementId].dx[moveInfoIdx];
+			}
+		}
 
 		if (::fclose(file) != 0)
 		{

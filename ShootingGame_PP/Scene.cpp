@@ -1,12 +1,11 @@
 #include "stdafx.h"
 #include "Scene.h"
-
 #include "Render.h"
 
 SceneType gScene = SceneType::START;
 Cursor gCursor;
 int32 gStageLevel = 0;
-bool gExit = false;
+
 
 
 void InitCursor()

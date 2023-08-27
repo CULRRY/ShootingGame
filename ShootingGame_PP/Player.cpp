@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Player.h"
-
 #include "Render.h"
 #include "Bullet.h"
 

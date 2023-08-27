@@ -80,9 +80,6 @@
     <ClInclude Include="LoadData.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Macro.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Game</Filter>
     </ClInclude>
@@ -91,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Macro.h">
+      <Filter>Utills</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
