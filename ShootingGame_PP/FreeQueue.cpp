@@ -33,7 +33,7 @@ int32 Pop(FreeQueue& freeQueue)
 
 	const int32 ret = freeQueue.data[freeQueue.head];
 
-	freeQueue.head++;
+	freeQueue.head = (freeQueue.head + 1) % freeQueue.capacity;
 	freeQueue.size--;
 
 	return ret;
