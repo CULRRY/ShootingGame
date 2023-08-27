@@ -42,11 +42,21 @@ void UpdateEnemy()
 		}
 
 		gEnemyArray[i].frameCount++;
+		const EnemyInfo& enemyInfo = gEnemyInfos[gEnemyArray[i].id];
 
 		// attackFrequency마다 총알 발사
 		if (gEnemyArray[i].frameCount % gEnemyInfos[gEnemyArray[i].id].attackFrequency == 0)
 		{
-			CreateBullet(BulletType::ENEMY, gEnemyArray[i].y + 2, gEnemyArray[i].x, gEnemyInfos[gEnemyArray[i].id].bulletSpeed);
+			for (int32 bulletIdx = 0; bulletIdx < enemyInfo.BulletCount; bulletIdx++)
+			{
+				CreateBullet(
+					BulletType::ENEMY, 
+					gEnemyArray[i].y + 2, 
+					gEnemyArray[i].x + enemyInfo.BulletXPosition[bulletIdx], 
+					gEnemyInfos[gEnemyArray[i].id].bulletSpeed,
+					(BulletDirection)enemyInfo.BulletDirection[bulletIdx]
+				);
+			}
 		}
 
 
@@ -67,7 +77,6 @@ void UpdateEnemy()
 
 
 		// 피격 판정
-		const EnemyInfo& enemyInfo = gEnemyInfos[gEnemyArray[i].id];
 		for (int32 y = gEnemyArray[i].y - 1; y <= gEnemyArray[i].y + 1; y++)
 		{
 			for (int32 x = gEnemyArray[i].x - 2; x <= gEnemyArray[i].x + 2; x++)

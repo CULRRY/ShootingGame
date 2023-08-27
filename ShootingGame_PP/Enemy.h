@@ -4,17 +4,17 @@ constexpr int32 MAX_ENEMY_CAPACITY = 30;
 
 struct Enemy
 {
-	bool isUse;				///< 배열에서 현재 해당 칸이 사용 중인지에 대한 플래그
+	bool isUse;					///< 배열에서 현재 해당 칸이 사용 중인지에 대한 플래그
 
-	int32 id;				///< 적군의 enemyInfo에서의 ID
+	int32 id;					///< 적군의 enemyInfo에서의 ID
 
-	int32 hp;				///< 적군의 체력
+	int32 hp;					///< 적군의 체력
 
-	int32 y;				///< y좌표
-	int32 x;				///< x좌표
+	int32 y;					///< y좌표
+	int32 x;					///< x좌표
 
-	int32 movementCount;	///< 이동 패턴을 구현하기 위해 계산되는 카운트
-	int32 frameCount;		///< 공격속도를 위해 계산되는 생성이후로 진행된 프레임 수
+	int32 movementCount;		///< 이동 패턴을 구현하기 위해 계산되는 카운트
+	int32 frameCount;			///< 공격속도를 위해 계산되는 생성이후로 진행된 프레임 수
 };
 
 //-------------------------------------------------------------------

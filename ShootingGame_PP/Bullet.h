@@ -9,16 +9,24 @@ enum class BulletType
 	ENEMY,
 };
 
+enum class BulletDirection
+{
+	LEFT,
+	CENTER,
+	RIGHT,
+};
+
 struct Bullet
 {
-	bool		isUse;			///< 배열에서 현재 해당 칸이 사용 중인지에 대한 플래그
+	bool				isUse;			///< 배열에서 현재 해당 칸이 사용 중인지에 대한 플래그
 
-	BulletType	type;			///< 총알을 발사한 주체
+	BulletType			type;			///< 총알을 발사한 주체
+	BulletDirection		direction;		///< 총알의 방향
 
-	int32		y;				///< 총알의 y좌표
-	int32		x;				///< 총알의 x좌표
-	int32		speed;			///< 총알의 속도 (업데이트되는 프레임 단위)
-	int32		frameCount;		///< 속도를 계산하기 위해 프레임을 카운팅 한다.
+	int32				y;				///< 총알의 y좌표
+	int32				x;				///< 총알의 x좌표
+	int32				speed;			///< 총알의 속도 (업데이트되는 프레임 단위)
+	int32				frameCount;		///< 속도를 계산하기 위해 프레임을 카운팅 한다.
 };
 
 extern int32 gBulletPosition[dfSCREEN_HEIGHT][dfSCREEN_WIDTH][2];
@@ -57,8 +65,9 @@ void DeleteBullet(int32 idx);
 /// @param y 총알의 y좌표
 /// @param x 총알의 x좌표
 /// @param speed 총알의 속도
+///	@param dir 총알 방향
 //-------------------------------------------------------------------
-void CreateBullet(const BulletType type, const int32 y, const int32 x, const int32 speed);
+void CreateBullet(const BulletType type, const int32 y, const int32 x, const int32 speed, BulletDirection dir = BulletDirection::CENTER);
 
 //-------------------------------------------------------------------
 /// @brief 총알을 화면에 그린다.

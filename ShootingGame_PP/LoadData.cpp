@@ -121,6 +121,16 @@ void LoadEnemyData()
 			}
 		}
 
+		// 총알 방향정보 업데이트
+		int32 bulletIdx = 0;
+		gEnemyInfos[i].BulletCount = 0;
+		while (::fscanf_s(file, "%d %d", &gEnemyInfos[i].BulletXPosition[bulletIdx], &gEnemyInfos[i].BulletDirection[bulletIdx]) 
+			!= EOF)
+		{
+			bulletIdx++;
+			gEnemyInfos[i].BulletCount++;
+		}
+
 		if (::fclose(file) != 0)
 		{
 			CRASH("파일 닫기 에러");

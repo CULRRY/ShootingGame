@@ -71,7 +71,22 @@ void UpdateBullet()
 			break;
 
 		case BulletType::ENEMY:
-			gBulletArray[idx].y++;
+			if (gBulletArray[idx].direction == BulletDirection::CENTER)
+			{
+				gBulletArray[idx].y++;
+			}
+
+			if (gBulletArray[idx].direction == BulletDirection::LEFT)
+			{
+				gBulletArray[idx].y++;
+				gBulletArray[idx].x--;
+			}
+
+			if (gBulletArray[idx].direction == BulletDirection::RIGHT)
+			{
+				gBulletArray[idx].y++;
+				gBulletArray[idx].x++;
+			}
 			break;
 		}
 
@@ -95,7 +110,7 @@ void DeleteBullet(int32 idx)
 	Push(gFreeBulletQueue, idx);
 }
 
-void CreateBullet(const BulletType type, const int32 y, const int32 x, const int32 speed)
+void CreateBullet(const BulletType type, const int32 y, const int32 x, const int32 speed, BulletDirection dir)
 {
 	const int32 idx = Pop(gFreeBulletQueue);
 
@@ -106,6 +121,7 @@ void CreateBullet(const BulletType type, const int32 y, const int32 x, const int
 	}
 	gBulletArray[idx].isUse = true;
 	gBulletArray[idx].type = type;
+	gBulletArray[idx].direction = dir;
 	gBulletArray[idx].y = y;
 	gBulletArray[idx].x = x;
 	gBulletArray[idx].speed = speed;

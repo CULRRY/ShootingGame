@@ -19,6 +19,9 @@ struct EnemyInfo
 	MovementInfo	movement;			///< 이동 패턴
 	int32			moveSpeed;			///< 이동 속도
 	int32			moveDistance;		///< 이동 거리
+	int32			BulletCount;		///< 한번에 발사하는 총알 갯수
+	int32			BulletXPosition[3];	///< 총알 발사되는 상대 x좌표(최대 3개)
+	int32			BulletDirection[3];	///< 총알의 방향(최대 3개)
 };
 
 
