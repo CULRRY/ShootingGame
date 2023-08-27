@@ -6,10 +6,6 @@
 #include "Info.h"
 #include "Scene.h"
 
-EnemyInfo* gEnemyInfos = nullptr;
-MovementInfo* gMovementInfos = nullptr;
-char gStageList[100][100] = { "", };
-
 void LoadMovementData()
 {
 	FILE* file = nullptr;
@@ -133,7 +129,7 @@ void LoadStageList()
 	{
 		char path[100] = "data/stage/";
 		::strcat_s(path, sizeof(path), fileName);
-		::strcpy_s(gStageList[fileCount], sizeof(path), path);
+		::strcpy_s(gStageFileList[fileCount], sizeof(path), path);
 		fileCount++;
 	}
 
@@ -147,7 +143,7 @@ void LoadStageData()
 {
 	FILE* file = nullptr;
 	// 데이터 파일 리스트 오픈
-	if (::fopen_s(&file, gStageList[gStageLevel], "r") != 0)
+	if (::fopen_s(&file, gStageFileList[gStageLevel], "r") != 0)
 	{
 		CRASH("파일 열기 에러");
 	}

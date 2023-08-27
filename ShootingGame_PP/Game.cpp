@@ -165,6 +165,7 @@ bool KeyProcess()
 			}
 			else
 			{
+				gStageLevel = 0;
 				gScene = SceneType::START;
 				InitCursor();
 			}
@@ -217,6 +218,7 @@ bool KeyProcess()
 		{
 			if (gCursor.y == 8)
 			{
+				gStageLevel = 0;
 				gScene = SceneType::START;
 				InitCursor();
 			}
