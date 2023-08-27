@@ -105,6 +105,7 @@ void LoadEnemyData()
 		::fscanf_s(file, "%d", &gEnemyInfos[i].attackFrequency);
 		::fscanf_s(file, "%d", &gEnemyInfos[i].bulletSpeed);
 		::fscanf_s(file, "%d", &movementId);
+		::fscanf_s(file, "%d", &gEnemyInfos[i].moveSpeed);
 		::fscanf_s(file, "%d", &gEnemyInfos[i].moveDistance);
 
 		gEnemyInfos[i].movement.size = gMovementInfos[movementId].size * gEnemyInfos[i].moveDistance;

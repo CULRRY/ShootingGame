@@ -7,6 +7,8 @@ struct Player
 
 	int32 x;	///< 플레이어 x좌표
 	int32 y;	///< 플레이어 y좌표
+
+	int32 frameCount;
 };
 
 extern Player gPlayer;

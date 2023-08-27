@@ -11,6 +11,8 @@ void InitPlayer()
 
 	gPlayer.x = 39;
 	gPlayer.y = 19;
+
+	gPlayer.frameCount = 0;
 }
 
 void UpdatePlayer()

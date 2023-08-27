@@ -53,14 +53,17 @@ void UpdateEnemy()
 		const MovementInfo& movement = gEnemyInfos[gEnemyArray[i].id].movement;
 
 		// 위치 업데이트
-		gEnemyArray[i].y += movement.dy[gEnemyArray[i].movementCount % movement.size];
-		gEnemyArray[i].x += movement.dx[gEnemyArray[i].movementCount % movement.size];
+		if (gEnemyArray[i].frameCount % gEnemyInfos[gEnemyArray[i].id].moveSpeed == 0)
+		{
+			gEnemyArray[i].y += movement.dy[gEnemyArray[i].movementCount % movement.size];
+			gEnemyArray[i].x += movement.dx[gEnemyArray[i].movementCount % movement.size];
 
-		gEnemyArray[i].x = max(gEnemyArray[i].x, 0);
-		gEnemyArray[i].x = min(gEnemyArray[i].x, 79);
-		gEnemyArray[i].y = max(gEnemyArray[i].y, 0);
-		gEnemyArray[i].y = min(gEnemyArray[i].y, 23);
-		gEnemyArray[i].movementCount++;
+			gEnemyArray[i].x = max(gEnemyArray[i].x, 0);
+			gEnemyArray[i].x = min(gEnemyArray[i].x, 79);
+			gEnemyArray[i].y = max(gEnemyArray[i].y, 0);
+			gEnemyArray[i].y = min(gEnemyArray[i].y, 23);
+			gEnemyArray[i].movementCount++;
+		}
 
 
 		// 피격 판정

@@ -2,6 +2,7 @@
 #define MAX_STAGE_LEVEL 2
 
 extern bool gExit;
+extern int32 gFrame;
 
 //-------------------------------------------------------------------
 /// @brief 게임에 필요한 정보들을 초기화한다.

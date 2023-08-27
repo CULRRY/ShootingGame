@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <timeapi.h>
 #include "Game.h"
 #include "LoadData.h"
 #include "Bullet.h"
@@ -9,9 +10,11 @@
 #include "Scene.h"
 
 bool gExit = false;
+int32 gFrame = 0;
 
 void Init()
 {
+	::timeBeginPeriod(1);
 	cs_Initial();
 	// dat파일을 불러와 게임 정보를 세팅
 	LoadStageList();
@@ -109,9 +112,15 @@ void Render()
 
 bool KeyProcess()
 {
+	gFrame++;
 	switch(gScene)
 	{
 	case SceneType::START:
+		// 메뉴화면에서는 프레임 조정
+		if (gFrame % 4 != 0)
+		{
+			return false;
+		}
 		// 위쪽 방향키.
 		if (GetAsyncKeyState(VK_UP) & 0x8001)
 		{
@@ -142,6 +151,11 @@ bool KeyProcess()
 		break;
 
 	case SceneType::PAUSE:
+		// 메뉴화면에서는 프레임 조정
+		if (gFrame % 4 != 0)
+		{
+			return false;
+		}
 		// 위쪽 방향키.
 		if (GetAsyncKeyState(VK_UP) & 0x8001)
 		{
@@ -157,7 +171,7 @@ bool KeyProcess()
 		gCursor.y = min(gCursor.y, 10);
 
 		// 엔터키
-		if (GetAsyncKeyState(VK_RETURN) & 0x8001)
+		if (GetAsyncKeyState(VK_RETURN) & 0x8000)
 		{
 			if (gCursor.y == 8)
 			{
@@ -172,7 +186,11 @@ bool KeyProcess()
 			}
 		}
 		break;
-	case SceneType::STAGE: 
+	case SceneType::STAGE:
+
+		gPlayer.frameCount++;
+
+
 		// 위쪽 방향키.
 		if (GetAsyncKeyState(VK_UP) & 0x8001)
 		{
@@ -204,7 +222,8 @@ bool KeyProcess()
 		// 콘트롤 키. (미사일 키)
 		if (GetAsyncKeyState(VK_CONTROL))
 		{
-			CreateBullet(BulletType::PLAYER, gPlayer.y, gPlayer.x, 1);
+			if (gPlayer.frameCount % 2 == 0)
+				CreateBullet(BulletType::PLAYER, gPlayer.y, gPlayer.x, 1);
 		}
 
 		// ESC 키. (일시정지)
@@ -215,7 +234,12 @@ bool KeyProcess()
 		break;
 	case SceneType::GAME_OVER: 
 	case SceneType::GAME_CLEAR:
-		if (GetAsyncKeyState(VK_RETURN) & 0x8001)
+		// 메뉴화면에서는 프레임 조정
+		if (gFrame % 4 != 0)
+		{
+			return false;
+		}
+		if (GetAsyncKeyState(VK_RETURN) & 0x8000)
 		{
 			if (gCursor.y == 8)
 			{

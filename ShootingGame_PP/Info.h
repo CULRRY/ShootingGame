@@ -17,6 +17,7 @@ struct EnemyInfo
 	int32			attackFrequency;	///< 공격 속도
 	int32			bulletSpeed;		///< 총알 속도
 	MovementInfo	movement;			///< 이동 패턴
+	int32			moveSpeed;			///< 이동 속도
 	int32			moveDistance;		///< 이동 거리
 };
 
