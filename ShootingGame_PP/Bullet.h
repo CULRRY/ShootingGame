@@ -29,6 +29,7 @@ struct Bullet
 	int32				frameCount;		///< 속도를 계산하기 위해 프레임을 카운팅 한다.
 };
 
+/// 피격판정을 위해 프레임마다 총알의 위치를 저장한다.
 extern int32 gBulletPosition[dfSCREEN_HEIGHT][dfSCREEN_WIDTH][2];
 
 //-------------------------------------------------------------------

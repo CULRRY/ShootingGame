@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include <timeapi.h>
 #include "Game.h"
+#include "Render.h"
 
 #define FPS_MS 50
+
 
 int main(void)
 {
@@ -16,13 +18,14 @@ int main(void)
 	DWORD startTime = timeGetTime();
 	DWORD prevTime = startTime;
 	int delayTime = 20;
+	char fpsStr[15];
 	while (true)
 	{
 
 		frame++;
 		if (timeGetTime() - start >= 1000)
 		{
-			printf("\n%lld\n", frame);
+			printf("FPS: %lld", frame);
 			frame = 0;
 			start = timeGetTime();
 		}

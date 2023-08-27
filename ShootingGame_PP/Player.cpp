@@ -7,7 +7,7 @@ Player gPlayer;
 
 void InitPlayer()
 {
-	gPlayer.hp = 3;
+	gPlayer.hp = 5;
 
 	gPlayer.x = 39;
 	gPlayer.y = 19;
@@ -17,6 +17,7 @@ void InitPlayer()
 
 void UpdatePlayer()
 {
+	// 피격판정
 	if (gBulletPosition[gPlayer.y][gPlayer.x][(int32)BulletType::ENEMY] != -1)
 	{
 		gPlayer.hp--;

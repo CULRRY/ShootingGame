@@ -75,31 +75,40 @@ void Update()
 void Render()
 {
 	ClearBuffer();
-
 	switch(gScene)
 	{
 	case SceneType::START:
 		DrawCursor();
 		DrawStartScene();
+		printf("\n             ");
+		printf("\n             ");
 		break;
 	case SceneType::STAGE: 
 		DrawBullet();
 		DrawEnemy();
 		DrawPlayer();
-		printf("STAGE %d", gStageLevel);
-		printf("\nHP : %d\n", gPlayer.hp);
+		printf("\nSTAGE %d\n", gStageLevel);
+		printf("HP : %d\n", gPlayer.hp);
 		break;
-	case SceneType::LOAD: 
+	case SceneType::LOAD:
+		printf("\n             ");
+		printf("\n             ");
 		break;
 	case SceneType::GAME_OVER:
+		printf("\n             ");
+		printf("\n             ");
 		DrawCursor();
 		DrawGameOverScene();
 		break;
 	case SceneType::GAME_CLEAR:
+		printf("\n             ");
+		printf("\n             ");
 		DrawCursor();
 		DrawGameClearScene();
 		break;
 	case SceneType::PAUSE:
+		printf("\nSTAGE %d\n", gStageLevel);
+		printf("HP : %d\n", gPlayer.hp);
 		DrawCursor();
 		DrawPauseScene();
 		break;

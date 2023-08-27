@@ -95,6 +95,7 @@ void LoadEnemyData()
 
 		EnemyInfo& info = gEnemyInfos[i];
 
+		// 유닛 그래픽 불러오기
 		for (int32 y = 0; y < MAX_GRAPHIC_SIZE; y++)
 		{
 			::fscanf_s(file, "%s", info.graphic[y], (uint32)sizeof(info.graphic[y]));
@@ -110,6 +111,7 @@ void LoadEnemyData()
 
 		gEnemyInfos[i].movement.size = gMovementInfos[movementId].size * gEnemyInfos[i].moveDistance;
 
+		// 움직임 정보 불러오기
 		for (int32 moveInfoIdx = 0; moveInfoIdx < gMovementInfos[movementId].size; moveInfoIdx++)
 		{
 			for (int32 iter = moveInfoIdx * gEnemyInfos[i].moveDistance; 
@@ -121,14 +123,23 @@ void LoadEnemyData()
 			}
 		}
 
-		// 총알 방향정보 업데이트
+		// 총알 방향정보 불러오기
 		int32 bulletIdx = 0;
 		gEnemyInfos[i].BulletCount = 0;
 		while (::fscanf_s(file, "%d %d", &gEnemyInfos[i].BulletXPosition[bulletIdx], &gEnemyInfos[i].BulletDirection[bulletIdx]) 
 			!= EOF)
 		{
+			if (bulletIdx > 3)
+			{
+				CRASH("총알 정보가 3개 초과함");
+			}
 			bulletIdx++;
 			gEnemyInfos[i].BulletCount++;
+		}
+
+		if (bulletIdx == 0)
+		{
+			CRASH("총알 정보 없음");
 		}
 
 		if (::fclose(file) != 0)
@@ -176,12 +187,14 @@ void LoadStageData()
 
 	char stageFileBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH] = {"", };
 
+	// '=' '\n'넘기기
 	fseek(file, dfSCREEN_WIDTH + 2, SEEK_SET);
 
 	for (int32 y = 0; y < dfSCREEN_HEIGHT; y++)
 	{
 		fread_s(&stageFileBuffer[y], dfSCREEN_WIDTH, 1, dfSCREEN_WIDTH, file);
 		stageFileBuffer[y][dfSCREEN_WIDTH - 1] = 0;
+		// '=' '\n'넘기기
 		fseek(file, 2, SEEK_CUR);
 	}
 
