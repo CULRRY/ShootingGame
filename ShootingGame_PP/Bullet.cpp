@@ -1,5 +1,4 @@
 #include "stdafx.h"
-
 #include "Bullet.h"
 #include "FreeQueue.h"
 #include "Render.h"

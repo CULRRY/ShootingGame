@@ -9,6 +9,8 @@
 #include "Render.h"
 #include "Scene.h"
 
+bool gExit = false;
+
 void Init()
 {
 	cs_Initial();
