@@ -2,14 +2,13 @@
 #include <timeapi.h>
 #include "Game.h"
 #include "LoadData.h"
+#include "Scene.h"
 
 int main(void)
 {
 
-	LoadMovementData();
-	LoadEnemyData();
-	Init();
 
+	Init();
 
 	while (true)
 	{
@@ -18,11 +17,13 @@ int main(void)
 
 		Update();
 
+		if (gExit == true)
+		{
+			return 0;
+		}
+
 		Render();
 
 		Sleep(200);
 	}
-
-
-	return 0;
 }

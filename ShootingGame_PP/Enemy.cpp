@@ -20,6 +20,19 @@ void InitEnemy()
 	}
 }
 
+void ResetEnemy()
+{
+	for (int32 i = 0; i < MAX_ENEMY_CAPACITY; i++)
+	{
+		if (gEnemyArray[i].isUse == false)
+		{
+			continue;
+		}
+
+		DeleteEnemy(i);
+	}
+}
+
 void UpdateEnemy()
 {
 	for (int32 i = 0; i < MAX_ENEMY_CAPACITY; i++)
@@ -105,6 +118,11 @@ void CreateEnemy(const int32 enemyId, const int32 y, const int32 x)
 	gEnemyArray[idx].x = x;
 	gEnemyArray[idx].movementCount = 0;
 	gEnemyArray[idx].frameCount = 0;
+}
+
+int32 GetLeftEnemy()
+{
+	return MAX_ENEMY_CAPACITY - gFreeEnemyQueue.size;
 }
 
 void DrawEnemy()

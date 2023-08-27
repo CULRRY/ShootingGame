@@ -16,14 +16,10 @@ void Init()
 	LoadStageList();
 	LoadMovementData();
 	LoadEnemyData();
+	InitCursor();
 	InitBulletArray();
 	InitEnemy();
 	InitPlayer();
-
-
-
-	CreateEnemy(2, 5, 10);
-	CreateEnemy(3, 5, 40);
 }
 
 void Update()
@@ -31,19 +27,41 @@ void Update()
 	switch (gScene)
 	{
 	case SceneType::START: 
-		
 		break;
 	case SceneType::STAGE:
-		ResetBulletPostion();
+		ResetBulletPosition();
 		UpdateBullet();
 		UpdateEnemy();
 		UpdatePlayer();
+
+		if (GetLeftEnemy() == 0)
+		{
+			gStageLevel++;
+			if (gStageLevel > MAX_STAGE_LEVEL)
+			{
+				gScene = SceneType::GAME_CLEAR;
+			}
+			else
+			{
+				gScene = SceneType::LOAD;
+			}
+		}
+
+		if (gPlayer.hp <= 0)
+		{
+			gScene = SceneType::GAME_OVER;
+		}
 		break;
 	case SceneType::LOAD:
+		InitPlayer();
+		ResetBulletArray();
+		ResetEnemy();
 		LoadStageData();
 		gScene = SceneType::STAGE;
 		break;
 	case SceneType::GAME_OVER: 
+		break;
+	case SceneType::GAME_CLEAR:
 		break;
 	case SceneType::PAUSE: 
 		break;
@@ -53,57 +71,109 @@ void Update()
 void Render()
 {
 	ClearBuffer();
-	DrawBullet();
-	DrawEnemy();
-	DrawPlayer();
+	switch(gScene)
+	{
+	case SceneType::START:
+		DrawCursor();
+		DrawStartScene();
+		break;
+	case SceneType::STAGE: 
+		DrawBullet();
+		DrawEnemy();
+		DrawPlayer();
+		printf("STAGE %d", gStageLevel);
+		printf("\nHP : %d\n", gPlayer.hp);
+		break;
+	case SceneType::LOAD: break;
+	case SceneType::GAME_OVER: break;
+	case SceneType::PAUSE: break;
+	}
+
+
 	FlipBuffer();
-	printf("\nHP : %d", gPlayer.hp);
+
 }
 
 bool KeyProcess()
 {
-	// 왼쪽 방향키.
-	if (GetAsyncKeyState(VK_LEFT))
+	switch(gScene)
 	{
-		gPlayer.x -= 1;
-	}
-	// 오른쪽 방향키.
-	if (GetAsyncKeyState(VK_RIGHT))
-	{
-		gPlayer.x += 1;
-	}
-	// 위쪽 방향키.
-	if (GetAsyncKeyState(VK_UP) & 0x8001)
-	{
-		gPlayer.y--;
-	}
-	// 아래쪽 방향키.
-	if (GetAsyncKeyState(VK_DOWN) & 0x8001)
-	{
-		gPlayer.y++;
-	}
+	case SceneType::START:
+		// 위쪽 방향키.
+		if (GetAsyncKeyState(VK_UP) & 0x8001)
+		{
+			gCursor.y -= 2;
+		}
+		// 아래쪽 방향키.
+		if (GetAsyncKeyState(VK_DOWN) & 0x8001)
+		{
+			gCursor.y += 2;
+		}
 
-	//-------------------------------------------------------------
-	// 플레이어 이동 반경 제한.
-	// 게임 화면에서 플레이어가 이동 가능한 구역을 제한한다.
-	//-------------------------------------------------------------
+		gCursor.y = max(gCursor.y, 8);
+		gCursor.y = min(gCursor.y, 10);
 
-	gPlayer.x = max(gPlayer.x, 0);
-	gPlayer.x = min(gPlayer.x, 79);
-	gPlayer.y = max(gPlayer.y, 0);
-	gPlayer.y = min(gPlayer.y, 23);
+		// 엔터키
+		if (GetAsyncKeyState(VK_RETURN) & 0x8001)
+		{
+			if (gCursor.y == 8)
+			{
+				gScene = SceneType::LOAD;
+				InitCursor();
+			}
+			else
+			{
+				gExit = true;
+			}
+		}
+		break;
+	case SceneType::STAGE: 
+		// 위쪽 방향키.
+		if (GetAsyncKeyState(VK_UP) & 0x8001)
+		{
+			gPlayer.y -= 1;
+		}
+		// 아래쪽 방향키.
+		if (GetAsyncKeyState(VK_DOWN) & 0x8001)
+		{
+			gPlayer.y += 1;
+		}
+		// 왼쪽 방향키.
+		if (GetAsyncKeyState(VK_LEFT))
+		{
+			gPlayer.x -= 1;
+		}
+		// 오른쪽 방향키.
+		if (GetAsyncKeyState(VK_RIGHT))
+		{
+			gPlayer.x += 1;
+		}
 
-	// 콘트롤 키. (미사일 키)
-	if (GetAsyncKeyState(VK_CONTROL))
-	{
-		CreateBullet(BulletType::PLAYER, gPlayer.y, gPlayer.x, 1);
+
+		// 플레이어 이동 반경 제한.
+		gPlayer.x = max(gPlayer.x, 0);
+		gPlayer.x = min(gPlayer.x, 79);
+		gPlayer.y = max(gPlayer.y, 0);
+		gPlayer.y = min(gPlayer.y, 23);
+
+		// 콘트롤 키. (미사일 키)
+		if (GetAsyncKeyState(VK_CONTROL))
+		{
+			CreateBullet(BulletType::PLAYER, gPlayer.y, gPlayer.x, 1);
+		}
+
+		// ESC 키. (종료)
+		if (GetAsyncKeyState(VK_ESCAPE) & 0x8001)
+		{
+			gScene = SceneType::PAUSE;
+		}
+		break;
+	case SceneType::LOAD: break;
+	case SceneType::GAME_OVER: break;
+	case SceneType::PAUSE: break;
+	default: ;
 	}
-
-	// ESC 키. (종료)
-	if (GetAsyncKeyState(VK_ESCAPE) & 0x8001)
-	{
-		gScene = SceneType::PAUSE;
-	}
+	
 
 	return true;
 }

@@ -1,7 +1,10 @@
 #include "stdafx.h"
 #include "Macro.h"
 #include "LoadData.h"
+#include "Console.h"
+#include "Enemy.h"
 #include "Info.h"
+#include "Scene.h"
 
 EnemyInfo* gEnemyInfos = nullptr;
 MovementInfo* gMovementInfos = nullptr;
@@ -122,7 +125,6 @@ void LoadStageList()
 		CRASH("파일 열기 에러");
 	}
 
-	char fileList[100][100] = { "", };
 
 	int32 fileCount = 0;
 	char fileName[100] = "";
@@ -131,7 +133,7 @@ void LoadStageList()
 	{
 		char path[100] = "data/stage/";
 		::strcat_s(path, sizeof(path), fileName);
-		::strcpy_s(fileList[fileCount], sizeof(path), path);
+		::strcpy_s(gStageList[fileCount], sizeof(path), path);
 		fileCount++;
 	}
 
@@ -143,4 +145,39 @@ void LoadStageList()
 
 void LoadStageData()
 {
+	FILE* file = nullptr;
+	// 데이터 파일 리스트 오픈
+	if (::fopen_s(&file, gStageList[gStageLevel], "r") != 0)
+	{
+		CRASH("파일 열기 에러");
+	}
+
+	char stageFileBuffer[dfSCREEN_HEIGHT][dfSCREEN_WIDTH] = {"", };
+
+	fseek(file, dfSCREEN_WIDTH + 2, SEEK_SET);
+
+	for (int32 y = 0; y < dfSCREEN_HEIGHT; y++)
+	{
+		fread_s(&stageFileBuffer[y], dfSCREEN_WIDTH, 1, dfSCREEN_WIDTH, file);
+		stageFileBuffer[y][dfSCREEN_WIDTH - 1] = 0;
+		fseek(file, 2, SEEK_CUR);
+	}
+
+	if (::fclose(file) != 0)
+	{
+		CRASH("파일 닫기 에러");
+	}
+
+	for (int32 y = 0; y < dfSCREEN_HEIGHT; y++)
+	{
+		for (int32 x = 0; x < dfSCREEN_WIDTH; x++)
+		{
+			if (stageFileBuffer[y][x] == ' ' || stageFileBuffer[y][x] == 0)
+			{
+				continue;
+			}
+
+			CreateEnemy(stageFileBuffer[y][x] - '0', y, x);
+		}
+	}
 }

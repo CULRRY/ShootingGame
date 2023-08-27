@@ -30,3 +30,11 @@ void DrawSprite(int iX, int iY, char chSprite)
 
 	szScreenBuffer[iY][iX] = chSprite;
 }
+
+void DrawString(int y, int x, const char* string)
+{
+	if (x + strlen(string) >= dfSCREEN_WIDTH)
+		return;
+
+	::memcpy(&szScreenBuffer[y][x], string, strlen(string));
+}

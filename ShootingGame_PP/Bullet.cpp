@@ -20,7 +20,20 @@ void InitBulletArray()
 	}
 }
 
-void ResetBulletPostion()
+void ResetBulletArray()
+{
+	for (int32 i = 0; i < MAX_BULLET_CAPACITY; i++)
+	{
+		if (gBulletArray[i].isUse == false)
+		{
+			continue;
+		}
+
+		DeleteBullet(i);
+	}
+}
+
+void ResetBulletPosition()
 {
 	for (int32 y = 0; y < dfSCREEN_HEIGHT; y++)
 	{
@@ -87,6 +100,11 @@ void CreateBullet(const BulletType type, const int32 y, const int32 x, const int
 {
 	const int32 idx = Pop(gFreeBulletQueue);
 
+	// 한계치 초과시 생성제한
+	if (idx == QUEUE_EMPTY)
+	{
+		return;
+	}
 	gBulletArray[idx].isUse = true;
 	gBulletArray[idx].type = type;
 	gBulletArray[idx].y = y;
