@@ -7,7 +7,7 @@ Player gPlayer;
 
 void InitPlayer()
 {
-	gPlayer.hp = 10;
+	gPlayer.hp = 9;
 
 	gPlayer.x = 39;
 	gPlayer.y = 19;

@@ -4,7 +4,7 @@
 
 SceneType gScene = SceneType::START;
 Cursor gCursor;
-int32 gStageLevel = 3;
+int32 gStageLevel = 0;
 
 
 
