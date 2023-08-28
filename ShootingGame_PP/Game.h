@@ -1,8 +1,9 @@
 #pragma once
-#define MAX_STAGE_LEVEL 2
+#define MAX_STAGE_LEVEL 3
+#define MENU_SELECT_FRAME 10
 
 extern bool gExit;
-extern int32 gFrame;
+extern int32 gFrameCount;
 
 //-------------------------------------------------------------------
 /// @brief 게임에 필요한 정보들을 초기화한다.

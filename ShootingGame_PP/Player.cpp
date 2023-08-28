@@ -7,12 +7,14 @@ Player gPlayer;
 
 void InitPlayer()
 {
-	gPlayer.hp = 5;
+	gPlayer.hp = 10;
 
 	gPlayer.x = 39;
 	gPlayer.y = 19;
 
-	gPlayer.frameCount = 0;
+	gPlayer.moveSpeed = 3;
+	gPlayer.attackFrequency = 6;
+	gPlayer.bulletSpeed = 3;
 }
 
 void UpdatePlayer()

@@ -50,6 +50,8 @@ int main(void)
 
 		if (overTime <= 0)
 			overTime = 0;
+		else if (overTime >= FPS_MS)
+			overTime = FPS_MS;
 		
 
 
