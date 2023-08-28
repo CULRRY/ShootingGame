@@ -3,31 +3,30 @@
 #include "Game.h"
 #include "Render.h"
 
-#define FPS_MS 50
+#define FPS_MS 20
 
 
 int main(void)
 {
-
-
 	Init();
 
-	DWORD start = timeGetTime();
-	int32 frame = 0;
 
 	DWORD startTime = timeGetTime();
-	DWORD prevTime = startTime;
-	int delayTime = 20;
-	char fpsStr[15];
+	DWORD timeForFPS = startTime;
+	DWORD idealTime = startTime;
+	int32 frame = 0;
+	DWORD overTime = 0;
 	while (true)
 	{
 
 		frame++;
-		if (timeGetTime() - start >= 1000)
+
+		// 초당 프레임 계산
+		if (timeGetTime() - timeForFPS >= 1000)
 		{
-			printf("FPS: %lld", frame);
+			printf("FPS: %d", frame);
 			frame = 0;
-			start = timeGetTime();
+			timeForFPS += 1000;
 		}
 
 
@@ -43,20 +42,15 @@ int main(void)
 
 		Render();
 
-		// 20프레임 고정
-		Sleep(delayTime);
+		// 50프레임 고정
+		Sleep(FPS_MS - overTime);
 
-		prevTime = startTime;
-		startTime = timeGetTime();
-		DWORD elapsedTime = startTime - prevTime;
-		if (elapsedTime <= FPS_MS)
-		{
-			delayTime = FPS_MS;
-		}
-		else
-		{
-			delayTime = FPS_MS - (elapsedTime - FPS_MS);
-		}
+		idealTime += FPS_MS;
+		overTime = timeGetTime() - idealTime;
+
+		if (overTime <= 0)
+			overTime = 0;
+		
 
 
 
