@@ -30,12 +30,12 @@ jobs:
           working-directory: "./doc"
 
       - name: Add .nojekyll
-        run: sudo touch ./build_doc/html/.nojekyll
+        run: sudo touch ./doc/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./build_doc/html
+          path: ./doc/html
 
   # Deployment job
   deploy:
